@@ -1,12 +1,12 @@
 Yelp to Google Plus
 ===================
 
-I really like the new version of Google Maps.  One of my favorite features is that subtly shows the local places I've reviewed before.  I like the idea of building a mental model of my environment and **my** view of San Francisco.
+I really like the new version of Google Maps.  One of my favorite features is that it subtly shows local places I've reviewed.  I like the idea of building a mental model of my environment -- **my** view of San Francisco.
 
 So I decided to port all of my Yelp reviews to Google Plus.  This is a short
 script that helped me do it.
 
-It has two main functions:
+It has two main roles:
 
 1) Yelp.com scraper (not sure if that a violation of TOS, but it's my data anyway).
 2) G+ review assistant.
