@@ -7,10 +7,9 @@ var request = require('request');
 var stdin = process.stdin, stdout = process.stdout;
 
 
-// Crawls {USERNAME}'s Yelp reviews, saves them in JSON in $PWD/{OUTFILE}.
+// Crawls {username}'s Yelp reviews, saves them in JSON in $PWD/{OUTFILE}.
 function scrapeReviewsFromYelp() {
   var DOMAIN = 'yelp.com';
-  var USERNAME = 'maxheinritz';
   var OUTFILE = 'reviews.out';
 
   var reviews = [];
@@ -84,7 +83,13 @@ function scrapeReviewsFromYelp() {
   }
 
   // Send the first request.
-  promptUserToSendReviewPageRequest('http://' + USERNAME + '.' + DOMAIN);
+  stdin.resume();
+  stdout.write('== What is your Yelp username? > ');
+  stdin.once('data', function(username) {
+    stdin.pause();
+    username = username.toString().trim();
+    promptUserToSendReviewPageRequest('http://' + username + '.' + DOMAIN);
+  });
 }
 
 // Opens the G+ Local page for each review and prompts the user to manually 
@@ -121,7 +126,7 @@ function addReviewstoGooglePlus(startIndex) {
     );
   }
 
-  loadGooglePlusPageForAction(startIndex);
+  loadGooglePlusPageForAction(startIndex || 0);
 }
 
 function promptForYelp() {
@@ -153,12 +158,7 @@ function promptForGoogle() {
       stdin.once('data', function(data) {
         stdin.pause();
         data = data.toString().trim();
-        if (parseInt(data) != NaN) {
-          addReviewstoGooglePlus(parseInt(data));
-        }
-        else {
-          addReviewstoGooglePlus(0);    
-        }
+        addReviewstoGooglePlus(parseInt(data));
       });
     }
   });
